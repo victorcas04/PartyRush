@@ -31,3 +31,11 @@ Move cursor -> Arrows/WASD
 Menu open/close -> Escape / P
 <br>Select option on menu -> Mouse left button
 
+### TODO LIST
+
+ - Bugfix: Move problems right and left
+ - Bugfix: When moving back to a cell, list goes back instead of stopping
+ - Finish: Implement "Move into conga" behaviour
+ - Finish: Make button "Next level" work
+ - New: Add color direction legend to pause menu
+ - New: Camera shake on death and merge
