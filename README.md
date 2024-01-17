@@ -35,8 +35,9 @@ Menu open/close -> Escape / P
 
  - Bugfix: Move problems right and left
  - Finish: Implement "Move into conga" behaviour
+ - New: Add commands to enable/disable debug messages and other utils
  - New: Add color direction legend to pause menu
  - New: Camera shake on death and merge
  - New: Add settings for audio
- - New: add colorblind support (shapes)
- - New: make release on git
+ - New: Add colorblind support (shapes)
+ - New: Make release on git
