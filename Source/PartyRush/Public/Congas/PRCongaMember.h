@@ -69,6 +69,9 @@ public:
 	void MergeFeedback(int32 MemberIdx) { BP_CongaMemberMerged(MemberIdx); }
 	
 	FOnCongaMemberUpdateLocation CongaMemberUpdateLocation_Delegate;
+
+	// this is for debug only, should never be used outside of that scope
+	const FVector2DInt GetCurrentCoordDebug() { return CurrCoord; }
 	
 protected:
 	UPROPERTY(EditAnywhere)

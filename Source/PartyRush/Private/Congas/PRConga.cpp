@@ -153,6 +153,15 @@ bool APRConga::CheckCanMoveInDirection(EPRMovementType Direction) const
 void APRConga::MoveConga(EPRMovementType Direction, FVector2DInt NewPos)
 {
 	MoveMembersOnConga(Direction, NewPos);
+
+	// uncomment this to debug conga movement
+	/*
+	for (APRCongaMember* Member : Members)
+	{
+		FString debug = Member->GetFName().ToString() + " : " + FString::FromInt(Member->GetCurrentCoordDebug().X) + " / " + FString::FromInt(Member->GetCurrentCoordDebug().Y);
+		GEngine->AddOnScreenDebugMessage(INDEX_NONE, 5.01f, FColor::Emerald, debug);
+	}
+	*/
 }
 
 void APRConga::UnbindMembers()
@@ -187,10 +196,10 @@ void APRConga::MoveMembersOnConga(EPRMovementType Direction, FVector2DInt NewPos
 	// in case the member selected is the first one in the array
 	if(Members[0]->IsLead())
 	{
+		// the last element on the conga will leave an empty cell
+		Members[Members.Num() - 1]->SetClearPreviousCellOnMove(true);
 		for(int32 i = Members.Num() - 1; i > 0; --i)
 		{
-			// the last element on the conga will leave an empty cell
-			Members[i]->SetClearPreviousCellOnMove(i == Members.Num() - 1);
 			Members[i]->MoveNonLeader(Members[i - 1]);
 		}
 		Members[0]->MoveLeader(NewPos);
@@ -199,10 +208,10 @@ void APRConga::MoveMembersOnConga(EPRMovementType Direction, FVector2DInt NewPos
 	// in case the member selected is the last one in the array
 	if(Members[Members.Num() - 1]->IsLead())
 	{
+		// the first element on the conga will leave an empty cell
+		Members[0]->SetClearPreviousCellOnMove(true);
 		for(int32 i = 0; i < Members.Num() - 1; ++i)
 		{
-			// the last element on the conga will leave an empty cell
-			Members[i]->SetClearPreviousCellOnMove(i == 0);
 			Members[i]->MoveNonLeader(Members[i + 1]);
 		}
 		Members[Members.Num() - 1]->MoveLeader(NewPos);
@@ -212,6 +221,8 @@ void APRConga::MoveMembersOnConga(EPRMovementType Direction, FVector2DInt NewPos
 	// update feedback for all the members that moved
 	for(int32 i = 0; i < Members.Num(); ++i)
     {
+		// force set this to false to avoid a bug where the previous cell member was being cleared and shouldn't
+		Members[i]->SetClearPreviousCellOnMove(false);
      	Members[i]->MoveFeedback(i);
     }
 }

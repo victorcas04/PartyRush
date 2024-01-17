@@ -31,7 +31,7 @@ public:
 	static int32 GetCellSize() { return APRCell::Cell_GetSize(); } 
 	
 	UFUNCTION()
-	APRCongaMember* GetMemberFromCell(FVector2DInt Pos);
+	APRCongaMember* GetMemberFromPos(FVector2DInt Pos);
 
 	UFUNCTION()
 	void AssignMemberToCell(APRCell* Cell, APRCongaMember* NewMember = nullptr);
@@ -50,9 +50,6 @@ public:
 	
 	UFUNCTION()
 	void AddCellToGrid(APRCell* NewCell);
-
-	UFUNCTION()
-	void AddCellToPos(APRCell* NewCell, FVector2DInt Pos, bool bOverride = true);
 
 	UFUNCTION()
 	void CellMemberChangedLocation(APRCongaMember* NewCongaMember, FVector2DInt NewCoord, FVector2DInt OldCoord, bool bClearPreviousCellOnMove);

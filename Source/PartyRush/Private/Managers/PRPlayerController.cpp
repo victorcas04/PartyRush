@@ -52,7 +52,7 @@ void APRPlayerController::PauseMenu()
 void APRPlayerController::Menu_Select()
 {
 	if(!IsMenuInput()) return;
-	// todo: select current option in menu
+	// menu management is done in BP through widgets
 }
 
 void APRPlayerController::Right()
@@ -82,25 +82,25 @@ void APRPlayerController::Down()
 void APRPlayerController::Menu_Right()
 {
 	if(!IsMenuInput()) return;
-	// todo: select menu option
+	// menu management is done in BP through widgets
 }
 
 void APRPlayerController::Menu_Left()
 {
 	if(!IsMenuInput()) return;
-	// todo: select menu option
+	// menu management is done in BP through widgets
 }
 
 void APRPlayerController::Menu_Up()
 {
 	if(!IsMenuInput()) return;
-	// todo: select menu option
+	// menu management is done in BP through widgets
 }
 
 void APRPlayerController::Menu_Down()
 {
 	if(!IsMenuInput()) return;
-	// todo: select menu option
+	// menu management is done in BP through widgets
 }
 
 void APRPlayerController::LevelStatusChanged()

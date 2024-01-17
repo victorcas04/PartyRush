@@ -88,7 +88,7 @@ EPRCellType APRGrid::GetCellType(const FVector2DInt Pos)
 	return Cells[GetRealPos(Pos)]->GetType();
 }
 
-APRCongaMember* APRGrid::GetMemberFromCell(const FVector2DInt Pos)
+APRCongaMember* APRGrid::GetMemberFromPos(const FVector2DInt Pos)
 {
 	return Cells[GetRealPos(Pos)]->GetMember();
 }
@@ -128,7 +128,6 @@ void APRGrid::SelectCurrentMemberOnCell()
 
 void APRGrid::MovementReceived(EPRMovementType Direction)
 {
-	
 	FVector2DInt NewPos = CursorCoord;
 	switch (Direction)
 	{
@@ -163,8 +162,8 @@ void APRGrid::MovementReceived(EPRMovementType Direction)
 			// stop at wall
 			return;
 		}
-		
-		if(APRCongaMember* CellMember = GetMemberFromCell(CursorCoord))
+
+		if(APRCongaMember* CellMember = GetMemberFromPos(CursorCoord))
 		{
 			if(!CellMember->GetCongaOwner()->CheckCanMoveInDirection(Direction)) return;
 			if(NewCell->GetType() == EPRCellType::Exit && !CellMember->IsPlayer())
@@ -182,7 +181,6 @@ void APRGrid::MovementReceived(EPRMovementType Direction)
 			CellMember->GetCongaOwner()->MoveConga(Direction, NewPos);
 			if(NewCell->GetType() == EPRCellType::Exit && CellMember->IsPlayer())
 			{
-				// todo: pass info of current level here to enable NextStage button functionality
 				OnLevelWin.Broadcast();
 			}
 			CursorCoord = NewPos;
@@ -205,21 +203,6 @@ void APRGrid::AddCellToGrid(APRCell* NewCell)
 {
 	if(!IsValid(NewCell)) return;
 	Cells.Add(NewCell);
-}
-
-void APRGrid::AddCellToPos(APRCell* NewCell, const FVector2DInt Pos, const bool bOverride/* = true*/)
-{
-	if(!IsValid(NewCell)) return;
-	const int32 RealPos = GetRealPos(Pos);
-	if(bOverride || !IsValid(Cells[RealPos]))
-	{
-		Cells.RemoveAt(RealPos);
-		Cells.Insert(NewCell, RealPos);
-	}
-	else
-	{
-		// error cannot add cell to position
-	}
 }
 
 void APRGrid::CellMemberChangedLocation(APRCongaMember* NewCongaMember, FVector2DInt NewCoord, FVector2DInt OldCoord, bool bClearPreviousCellOnMove)
