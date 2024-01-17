@@ -34,7 +34,9 @@ Menu open/close -> Escape / P
 ### TODO LIST
 
  - Bugfix: Move problems right and left
- - Bugfix: When moving back to a cell, list goes back instead of stopping
  - Finish: Implement "Move into conga" behaviour
  - New: Add color direction legend to pause menu
  - New: Camera shake on death and merge
+ - New: Add settings for audio
+ - New: add colorblind support (shapes)
+ - New: make release on git
