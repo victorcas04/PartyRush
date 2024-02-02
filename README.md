@@ -33,11 +33,13 @@ Menu open/close -> Escape / P
 
 ### TODO LIST
 
- - Bugfix: Move problems right and left
+ - Bugfix: menu descriptions next and previous not working correctly
+ - Bugfix: controller not working on menus
+ - New: Camera shake and rumble on death and merge
+
+##### On Hold
  - Finish: Implement "Move into conga" behaviour
  - New: Add commands to enable/disable debug messages and other utils
- - New: Add color direction legend to pause menu
- - New: Camera shake on death and merge
  - New: Add settings for audio
  - New: Add colorblind support (shapes)
  - New: Make release on git
