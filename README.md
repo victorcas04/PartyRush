@@ -33,13 +33,22 @@ Menu open/close -> Escape / P
 
 ### TODO LIST
 
- - Bugfix: menu descriptions next and previous not working correctly
  - Bugfix: controller not working on menus
- - New: Camera shake and rumble on death and merge
+ - New: Make release on git
 
 ##### On Hold
- - Finish: Implement "Move into conga" behaviour
- - New: Add commands to enable/disable debug messages and other utils
+
+Feedback:
+ - New: Camera shake and rumble on death and merge
+ - New: Add bg music, sfx when moving, dying, merging and completing the level
+
+ Gameplay:
+ - New: Add some kind of stats (number of moves, time, deaths, number of merges, etc) so we can add an score or something
+ 
+ Setings:
  - New: Add settings for audio
+ - New: Add settings for camera shake and rumble
  - New: Add colorblind support (shapes)
- - New: Make release on git
+
+Prg and utils:
+ - New: Add commands to enable/disable debug messages and other utils

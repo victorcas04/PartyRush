@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "CoreMinimal.h"
+#include "PRMenusInfo.h"
 #include "Blueprint/UserWidget.h"
 #include "PRBaseMenuWidget.generated.h"
 
@@ -15,17 +16,31 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	bool GetIsPauseMenu() const { return bIsPauseMenu; }
 	
+	// Datatable where the init data is stored
+	UPROPERTY(EditAnywhere, Category = "Data")
+	UDataTable* MenusDT;
+
+	// Name of the datatable's row where the menus data is stored for current submenu
+	UPROPERTY(EditAnywhere, Category = "Data")
+	FName DT_RowName;
+
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TMap<FName, TSubclassOf<UPRBaseMenuWidget>> MapWidgetClasses;
-	
 	UPROPERTY(EditAnywhere)
 	bool bIsPauseMenu{false};
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	APRMenuManager* GetManager() { return WidgetManager; }
 
+	UFUNCTION(BlueprintCallable)
+	void Init();
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	const TMap<FName, TSubclassOf<UPRBaseMenuWidget>> GetMapSubmenusData() const { return MapSubmenusData; }
+
 private:
+	UPROPERTY()
+	TMap<FName, TSubclassOf<UPRBaseMenuWidget>> MapSubmenusData;
+
 	UPROPERTY()
 	APRMenuManager* WidgetManager;
 };
