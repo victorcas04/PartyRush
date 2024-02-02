@@ -78,3 +78,5 @@ DerivedDataCache/*
 Content/Pak/*
 Content/StarterContent/*
 
+enc_temp_folder/*
+BuildExe/
