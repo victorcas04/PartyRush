@@ -33,8 +33,10 @@ Menu open/close -> Escape / P
 
 ### TODO LIST
 
- - Bugfix: controller not working on menus
+ - Fix: bug when closing pause menu and pressing select button )reopens pause menu
  - New: Make release on git
+ - Improvement: set completed status on levels
+ - Improvement: add popup when trying to return to main manu from pause menu
 
 ##### On Hold
 
