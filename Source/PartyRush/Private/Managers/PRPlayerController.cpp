@@ -9,7 +9,7 @@ void APRPlayerController::Init(APRGrid* Map, APRMenuManager* NewMenuManager)
 	if(IsMenuInput())
 	{
 		const FInputModeGameAndUI GameMode;
-		SetShowMouseCursor(true);
+		SetShowMouseCursor(false);
 		SetInputMode(GameMode);
 	}
 	else
@@ -34,7 +34,7 @@ void APRPlayerController::PauseMenu()
 		if(MenuManager->OpenPauseMenu())
 		{
 			const FInputModeGameAndUI GameMode;
-			SetShowMouseCursor(true);
+			SetShowMouseCursor(false);
 			SetInputMode(GameMode);
 		}
 	}
@@ -47,6 +47,15 @@ void APRPlayerController::PauseMenu()
 			SetInputMode(GameMode);
 		}
 	}
+}
+
+void APRPlayerController::BeginPlay()
+{
+	Super::BeginPlay();
+
+	const FInputModeGameAndUI GameMode;
+	SetShowMouseCursor(false);
+	SetInputMode(GameMode);
 }
 
 void APRPlayerController::Menu_Select()

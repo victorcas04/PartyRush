@@ -26,7 +26,7 @@ public:
 	// true if opened
 	UFUNCTION()
 	bool OpenPauseMenu();
-	
+
 	// false if closed
 	UFUNCTION()
 	bool ClosePauseMenu();

@@ -9,7 +9,7 @@ void APRMenuManager::Init(TSubclassOf<UPRBaseMenuWidget> InitMenuClass)
 	if(IsValid(InitMenu))
 	{
 		InitMenu->SetManager(this);
-		InitMenu->AddToViewport();
+		InitMenu->CustomAddToViewport();
 		bIsPauseMenu = InitMenu->GetIsPauseMenu();
 		bIsMenuOpen = true;
 	}
@@ -27,7 +27,7 @@ bool APRMenuManager::OpenPauseMenu()
 	PauseMenuRef = CreateWidget<UPRBaseMenuWidget>(GetWorld(), PauseMenuClass);
 	if(!IsValid(PauseMenuRef)) return false;
 	PauseMenuRef->SetManager(this);
-	PauseMenuRef->AddToViewport();
+	PauseMenuRef->CustomAddToViewport();
 	SetIsMenuOpen(true, true);
 	return true;
 }
@@ -46,7 +46,7 @@ void APRMenuManager::LevelWin()
 	UPRBaseMenuWidget* WinScreen = CreateWidget<UPRBaseMenuWidget>(GetWorld(), WinScreenClass);
 	if(!IsValid(WinScreen)) return;
 	WinScreen->SetManager(this);
-	WinScreen->AddToViewport();
+	WinScreen->CustomAddToViewport();
 	SetIsMenuOpen(true, false);
 	OnLevelStatusChanged.Broadcast();
 }
@@ -57,7 +57,7 @@ void APRMenuManager::LevelGameOver()
 	UPRBaseMenuWidget* GameOverScreen = CreateWidget<UPRBaseMenuWidget>(GetWorld(), GameOverScreenClass);
 	if(!IsValid(GameOverScreen)) return
 	GameOverScreen->SetManager(this);
-	GameOverScreen->AddToViewport();
+	GameOverScreen->CustomAddToViewport();
 	SetIsMenuOpen(true, false);
 	OnLevelStatusChanged.Broadcast();
 }

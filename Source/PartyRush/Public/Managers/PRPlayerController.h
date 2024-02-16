@@ -18,6 +18,8 @@ public:
 	void PauseMenu();
 	
 protected:
+	virtual void BeginPlay() override;
+
 	/*
 	 * Input redirection from BP to c++
 	 */

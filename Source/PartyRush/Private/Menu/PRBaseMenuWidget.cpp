@@ -1,4 +1,15 @@
 ﻿#include "PRBaseMenuWidget.h"
+#include "Kismet/GameplayStatics.h"
+
+void UPRBaseMenuWidget::CustomAddToViewport(int32 ZOrder)
+{
+	AddToViewport(ZOrder);
+	/*
+	APlayerController* PController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	if (!IsValid(PController)) return;
+	SetUserFocus(PController);
+	*/
+}
 
 void UPRBaseMenuWidget::Init()
 {

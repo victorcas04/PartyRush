@@ -24,6 +24,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Data")
 	FName DT_RowName;
 
+	UFUNCTION(BlueprintCallable)
+	void CustomAddToViewport(int32 ZOrder = 0);
+
 protected:
 	UPROPERTY(EditAnywhere)
 	bool bIsPauseMenu{false};
