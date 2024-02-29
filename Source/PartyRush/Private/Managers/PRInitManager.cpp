@@ -82,6 +82,7 @@ bool APRInitManager::InitMap()
 	if(!Map->InitGrid(InitData.Size, InitData.ExitPos,
 		InitData.FloorCellSubclass, InitData.WallCellSubclass, InitData.ExitCellSubclass)) return false;
 	
+	Map->SetLevelName(FName(UGameplayStatics::GetCurrentLevelName(GetWorld(), true)));
 	return true;
 }
 

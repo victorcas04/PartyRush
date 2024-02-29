@@ -33,11 +33,7 @@ Menu open/close -> Escape / P
 
 ### TODO LIST
 
- - New: Make release on git
- - Improvement: set completed status on levels
  - Improvement: add popup when trying to return to main manu from pause menu
-
-##### On Hold
 
 Feedback:
  - New: Camera shake and rumble on death and merge

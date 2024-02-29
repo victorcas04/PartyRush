@@ -1,6 +1,7 @@
 ﻿#include "PRGrid.h"
 #include "PRConga.h"
 #include "PRCongasManager.h"
+#include "PRGameInstance.h"
 
 bool APRGrid::InitGrid(const FVector2DInt NewSize, const FVector2DInt NewExitPos,
                        TSubclassOf<APRCell> NewFloorCellSubclass, TSubclassOf<APRCell> NewWallCellSubclass, TSubclassOf<APRCell> NewExitCellSubclass)
@@ -182,6 +183,11 @@ void APRGrid::MovementReceived(EPRMovementType Direction)
 			if(NewCell->GetType() == EPRCellType::Exit && CellMember->IsPlayer())
 			{
 				OnLevelWin.Broadcast();
+				UPRGameInstance* GI = Cast<UPRGameInstance>(GetGameInstance());
+				if (IsValid(GI))
+				{
+					GI->SetLevelCompleted(LevelName);
+				}
 			}
 			CursorCoord = NewPos;
 		}

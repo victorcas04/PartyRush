@@ -54,6 +54,9 @@ public:
 	UFUNCTION()
 	void CellMemberChangedLocation(APRCongaMember* NewCongaMember, FVector2DInt NewCoord, FVector2DInt OldCoord, bool bClearPreviousCellOnMove);
 
+	UFUNCTION()
+	void SetLevelName(FName NewName) { LevelName = NewName; }
+
 	FOnLevelGameOver OnLevelGameOver;
 	FOnLevelWin OnLevelWin;
 	
@@ -72,6 +75,9 @@ private:
 
 	UPROPERTY()
 	TArray<APRCell*> Cells;
+
+	UPROPERTY()
+	FName LevelName;
 
 	// returns False if we need to deselect current conga. Returns True if we can maintain current conga selected.
 	UFUNCTION()
