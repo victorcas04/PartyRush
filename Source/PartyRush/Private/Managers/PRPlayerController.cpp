@@ -24,6 +24,7 @@ void APRPlayerController::Init(APRGrid* Map, APRMenuManager* NewMenuManager)
 void APRPlayerController::Select()
 {
 	if(IsMenuInput()) return;
+	if(!IsValid(Grid)) return;
 	Grid->SelectCurrentMemberOnCell();
 }
 
@@ -67,24 +68,28 @@ void APRPlayerController::Menu_Select()
 void APRPlayerController::Right()
 {
 	if(IsMenuInput()) return;
+	if (!IsValid(Grid)) return;
 	Grid->MovementReceived(EPRMovementType::Right);
 }
 
 void APRPlayerController::Left()
 {
 	if(IsMenuInput()) return;
+	if (!IsValid(Grid)) return;
 	Grid->MovementReceived(EPRMovementType::Left);
 }
 
 void APRPlayerController::Up()
 {
-	if(IsMenuInput()) return;
+	if (IsMenuInput()) return;
+	if (!IsValid(Grid)) return;
 	Grid->MovementReceived(EPRMovementType::Up);
 }
 
 void APRPlayerController::Down()
 {
-	if(IsMenuInput()) return;
+	if (IsMenuInput()) return;
+	if (!IsValid(Grid)) return;
 	Grid->MovementReceived(EPRMovementType::Down);
 }
 

@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include "CoreMinimal.h"
 #include "PRInitInfo.h"
-#include "Engine/DataTable.h"
 #include "PRInitManager.generated.h"
 
 class APRMenuManager;
@@ -10,6 +9,7 @@ class APRCell;
 class APRConga;
 class APRCongaMember;
 class UPRBaseMenuWidget;
+class UPRGameInstance;
 
 UCLASS()
 class PARTYRUSH_API APRInitManager : public AActor
@@ -20,33 +20,28 @@ public:
 	UPROPERTY(EditAnywhere)
 	bool bIsInGameMap{true};
 
-	// Menu manager subclass
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<APRMenuManager> MenuManagerClass;
-	
-	// Menu widget to spawn
-	UPROPERTY(EditAnywhere, Category="Menu", meta=(EditCondition="!bIsInGameMap"))
-	TSubclassOf<UPRBaseMenuWidget> InitMenuClass;
-	
-	// Datatable where the init data is stored
-	UPROPERTY(EditAnywhere, Category="InGame", meta=(EditCondition="bIsInGameMap"))
-	UDataTable* InitDT;
-	
-	// Name of the datatable's row where the init data is stored for current level
-	UPROPERTY(EditAnywhere, Category="InGame", meta=(EditCondition="bIsInGameMap"))
-	FName DT_RowName;
-
-	// Camera from the world to be used
-	UPROPERTY(EditAnywhere, Category="InGame", meta=(EditCondition="bIsInGameMap"))
-	ACameraActor* Camera;
-	
 	UFUNCTION(BlueprintCallable)
 	void Init();
 
 protected:
 	virtual void BeginPlay() override;
+
+	// Menu widget to spawn
+	UPROPERTY(EditAnywhere, meta = (EditCondition = "!bIsInGameMap"))
+	TSubclassOf<UPRBaseMenuWidget> InitMenuClass;
+
+	// Datatable where the init data is stored
+	UPROPERTY(EditAnywhere, meta = (EditCondition = "bIsInGameMap", RowType = "FInitData"))
+	UDataTable* OverridedInitDT;
+
+	// Name of the datatable's row where the init data is stored for current level (this overrides whatever is saved in the GI)
+	UPROPERTY(EditAnywhere, meta = (EditCondition = "bIsInGameMap"))
+	FName OverridedInitRowName;
 	
 private:
+	UPROPERTY()
+	UPRGameInstance* GI;
+
 	UPROPERTY()
 	FInitData InitData;
 	
@@ -58,7 +53,13 @@ private:
 
 	UPROPERTY()
 	bool bInitialized = false;
-	
+
+	UPROPERTY()
+	FName InitRowName_Internal;
+
+	UPROPERTY()
+	UDataTable* InitDT_Internal;
+
 	UFUNCTION()
     bool InitMap();
    

@@ -7,6 +7,7 @@
 #include "PRBaseMenuWidget.h"
 #include "Camera/CameraActor.h"
 #include "Kismet/GameplayStatics.h"
+#include "PRGameInstance.h"
 
 void APRInitManager::Init()
 {
@@ -14,14 +15,28 @@ void APRInitManager::Init()
 	APlayerController* PController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 	if(IsValid(PController)) DisableInput(PController);
 
+	GI = Cast<UPRGameInstance>(GetGameInstance());
+	if (!IsValid(GI)) return;
+
 	if(bIsInGameMap)
 	{
-		// try to read data from table
-		if(!IsValid(InitDT)) return;
-		if(DT_RowName == "") return;
-		const FInitData* FoundRow = InitDT->FindRow<FInitData>(DT_RowName, "APRInitManager::Init");
-		if(!FoundRow) return;
-		InitData = *(FoundRow);
+		if (OverridedInitRowName == "" || !IsValid(OverridedInitDT))
+		{
+			InitRowName_Internal = GI->GetInitRowName();
+			InitDT_Internal = GI->GetInitDT();
+			if (InitRowName_Internal == "" || !IsValid(InitDT_Internal)) return;
+		}
+		else
+		{
+			InitRowName_Internal = OverridedInitRowName;
+			GI->SetInitRowName(OverridedInitRowName);
+			InitDT_Internal = OverridedInitDT;
+			GI->SetInitDT(OverridedInitDT);
+		}
+
+		FInitData* Row = InitDT_Internal->FindRow<FInitData>(InitRowName_Internal, "APRInitManager::Init");
+		if (!Row) return;
+		InitData = *Row;
 
 		if(!InitMap())
 		{
@@ -82,7 +97,7 @@ bool APRInitManager::InitMap()
 	if(!Map->InitGrid(InitData.Size, InitData.ExitPos,
 		InitData.FloorCellSubclass, InitData.WallCellSubclass, InitData.ExitCellSubclass)) return false;
 	
-	Map->SetLevelName(FName(UGameplayStatics::GetCurrentLevelName(GetWorld(), true)));
+	Map->SetLevelName(InitRowName_Internal);
 	return true;
 }
 
@@ -124,7 +139,13 @@ bool APRInitManager::InitCongas()
 
 bool APRInitManager::InitCamera() const
 {
+	TArray<AActor*> FoundActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ACameraActor::StaticClass(), FoundActors);
+	if (FoundActors.Num() <= 0) return false;
+
+	ACameraActor* Camera = Cast<ACameraActor>(FoundActors[0]);
 	if(!IsValid(Camera)) return false;
+
 	APlayerController* PController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 	if(!IsValid(PController)) return false;
 	
@@ -146,14 +167,14 @@ bool APRInitManager::InitCamera() const
 
 bool APRInitManager::InitMapManager()
 {
-	if(!IsValid(MenuManagerClass)) return false;
+	if(!IsValid(GI->GetMenuManagerClass())) return false;
 	// create and init grid
 	const FName MenuManagerName = FName("MenuManager");
 	FActorSpawnParameters SpawnParams{};
 	SpawnParams.Owner = this;
 	SpawnParams.Name = MenuManagerName;
 
-	MenuManagerRef = GetWorld()->SpawnActor<APRMenuManager>(MenuManagerClass, FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
+	MenuManagerRef = GetWorld()->SpawnActor<APRMenuManager>(GI->GetMenuManagerClass(), FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
 	if(!IsValid(MenuManagerRef)) return false;
 
 	MenuManagerRef->Init(InitMenuClass);

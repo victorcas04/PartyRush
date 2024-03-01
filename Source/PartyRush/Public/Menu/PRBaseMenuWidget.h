@@ -22,7 +22,7 @@ public:
 
 	// Name of the datatable's row where the menus data is stored for current submenu
 	UPROPERTY(EditAnywhere, Category = "Data")
-	FName DT_RowName;
+	FName MenusRowName;
 
 	UFUNCTION(BlueprintCallable)
 	void CustomAddToViewport(int32 ZOrder = 0);

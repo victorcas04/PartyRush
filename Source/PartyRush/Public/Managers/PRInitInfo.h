@@ -17,6 +17,9 @@ struct PARTYRUSH_API FInitData : public FTableRowBase
 
 public:
 	UPROPERTY(EditAnywhere)
+	FName InitRowName;
+
+	UPROPERTY(EditAnywhere)
 	TSubclassOf<APRGrid> GridSubclass;
 
 	UPROPERTY(EditAnywhere)
