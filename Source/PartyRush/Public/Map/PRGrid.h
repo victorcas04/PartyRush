@@ -5,9 +5,6 @@
 #include "Vector2DInt.h"
 #include "PRGrid.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnLevelWin);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnLevelGameOver);
-
 UCLASS(BlueprintType)
 class PARTYRUSH_API APRGrid : public AActor
 {
@@ -55,10 +52,10 @@ public:
 	void CellMemberChangedLocation(APRCongaMember* NewCongaMember, FVector2DInt NewCoord, FVector2DInt OldCoord, bool bClearPreviousCellOnMove);
 
 	UFUNCTION()
-	void SetLevelName(FName NewName) { LevelName = NewName; }
+	void SetGIRef(UPRGameInstance* NewGIRef);
 
-	FOnLevelGameOver OnLevelGameOver;
-	FOnLevelWin OnLevelWin;
+	UFUNCTION()
+	void SetLevelName(FName NewName);
 	
 private:
 	UPROPERTY()
@@ -75,6 +72,9 @@ private:
 
 	UPROPERTY()
 	TArray<APRCell*> Cells;
+
+	UPROPERTY()
+	UPRGameInstance* GI;
 
 	UPROPERTY()
 	FName LevelName;

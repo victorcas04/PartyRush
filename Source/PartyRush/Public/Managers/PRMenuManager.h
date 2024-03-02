@@ -37,6 +37,9 @@ public:
 	UFUNCTION()
 	void LevelGameOver();
 
+	UFUNCTION()
+	void LevelCommon(UPRBaseMenuWidget* Screen);
+
 	FOnLevelStatusChanged OnLevelStatusChanged;
 	
 protected:

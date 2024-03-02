@@ -44,20 +44,21 @@ void APRMenuManager::LevelWin()
 {
 	if(!IsValid(WinScreenClass)) return;
 	UPRBaseMenuWidget* WinScreen = CreateWidget<UPRBaseMenuWidget>(GetWorld(), WinScreenClass);
-	if(!IsValid(WinScreen)) return;
-	WinScreen->SetManager(this);
-	WinScreen->CustomAddToViewport();
-	SetIsMenuOpen(true, false);
-	OnLevelStatusChanged.Broadcast();
+	LevelCommon(WinScreen);
 }
 
 void APRMenuManager::LevelGameOver()
 {
 	if(!IsValid(GameOverScreenClass)) return;
 	UPRBaseMenuWidget* GameOverScreen = CreateWidget<UPRBaseMenuWidget>(GetWorld(), GameOverScreenClass);
-	if(!IsValid(GameOverScreen)) return
-	GameOverScreen->SetManager(this);
-	GameOverScreen->CustomAddToViewport();
+	LevelCommon(GameOverScreen);
+}
+
+void APRMenuManager::LevelCommon(UPRBaseMenuWidget* Screen)
+{
+	if (!IsValid(Screen)) return;
+	Screen->SetManager(this);
+	Screen->CustomAddToViewport();
 	SetIsMenuOpen(true, false);
 	OnLevelStatusChanged.Broadcast();
 }

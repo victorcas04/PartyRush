@@ -97,6 +97,7 @@ bool APRInitManager::InitMap()
 	if(!Map->InitGrid(InitData.Size, InitData.ExitPos,
 		InitData.FloorCellSubclass, InitData.WallCellSubclass, InitData.ExitCellSubclass)) return false;
 	
+	Map->SetGIRef(GI);
 	Map->SetLevelName(InitRowName_Internal);
 	return true;
 }
@@ -178,11 +179,8 @@ bool APRInitManager::InitMapManager()
 	if(!IsValid(MenuManagerRef)) return false;
 
 	MenuManagerRef->Init(InitMenuClass);
-	if(IsValid(Map))
-	{
-		Map->OnLevelGameOver.AddDynamic(MenuManagerRef, &APRMenuManager::LevelGameOver);
-		Map->OnLevelWin.AddDynamic(MenuManagerRef, &APRMenuManager::LevelWin);
-	}
+	GI->OnLevelGameOver.AddDynamic(MenuManagerRef, &APRMenuManager::LevelGameOver);
+	GI->OnLevelWin.AddDynamic(MenuManagerRef, &APRMenuManager::LevelWin);
 	
 	return true;
 }

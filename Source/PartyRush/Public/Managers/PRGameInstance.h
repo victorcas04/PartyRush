@@ -7,12 +7,18 @@
 
 class APRMenuManager;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnLevelWin);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnLevelGameOver);
+
 UCLASS()
 class PARTYRUSH_API UPRGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
 	
 public:
+	UFUNCTION()
+	void SetCurrentLevelName(FName LevelName);
+
 	UFUNCTION(BlueprintCallable)
 	void SetLevelCompleted(FName LevelName, bool bCompleted = true);
 
@@ -37,12 +43,31 @@ public:
 	UFUNCTION()
 	TSubclassOf<APRMenuManager> GetMenuManagerClass() { return MenuManagerClass; }
 
+	UFUNCTION()
+	void TriggerGameOver();
+
+	UFUNCTION()
+	void TriggerWin();
+
+	FOnLevelGameOver OnLevelGameOver;
+	FOnLevelWin OnLevelWin;
+
+	/// PRDEBUG
+
+	UFUNCTION(BlueprintCallable)
+	void DEBUG_TriggerWin();
+
+	///
+
 protected:
 	// Menu manager subclass
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<APRMenuManager> MenuManagerClass;
 
 private:
+	UPROPERTY()
+	FName CurrLevelName;
+
 	UPROPERTY()
 	TArray<FName> ArrayLevelsCompleted;
 

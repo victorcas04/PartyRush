@@ -182,11 +182,9 @@ void APRGrid::MovementReceived(EPRMovementType Direction)
 			CellMember->GetCongaOwner()->MoveConga(Direction, NewPos);
 			if(NewCell->GetType() == EPRCellType::Exit && CellMember->IsPlayer())
 			{
-				OnLevelWin.Broadcast();
-				UPRGameInstance* GI = Cast<UPRGameInstance>(GetGameInstance());
 				if (IsValid(GI))
 				{
-					GI->SetLevelCompleted(LevelName);
+					GI->TriggerWin();
 				}
 			}
 			CursorCoord = NewPos;
@@ -222,6 +220,17 @@ void APRGrid::CellMemberChangedLocation(APRCongaMember* NewCongaMember, FVector2
 	AssignMemberToCell(NewCell, NewCongaMember);
 }
 
+void APRGrid::SetGIRef(UPRGameInstance* NewGIRef)
+{
+	GI = NewGIRef;
+}
+
+void APRGrid::SetLevelName(FName NewName)
+{
+	LevelName = NewName;
+	GI->SetCurrentLevelName(LevelName);
+}
+
 void APRGrid::ManageCollision(FVector2DInt NewPos)
 {
 	APRCell* CurrentCell = GetCellFromPos(CursorCoord);
@@ -233,7 +242,10 @@ void APRGrid::ManageCollision(FVector2DInt NewPos)
 	
 	if(CurrentMember->IsPlayer() != NewMember->IsPlayer())
 	{
-		OnLevelGameOver.Broadcast();
+		if (IsValid(GI))
+		{
+			GI->TriggerGameOver();
+		}
 	}
 	else
 	{
