@@ -25,6 +25,9 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	bool IsLevelCompleted(FName LevelName) const;
 
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	bool AreLevelsCompleted(TArray<FName> LevelsNames) const;
+
 	UFUNCTION(BlueprintCallable)
 	void ResetAllLevelsCompletion() { ArrayLevelsCompleted.Empty(); }
 

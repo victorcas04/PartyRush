@@ -1,7 +1,5 @@
 #include "PRGameInstance.h"
 
-
-
 void UPRGameInstance::SetCurrentLevelName(FName LevelName)
 {
 	CurrLevelName = LevelName;
@@ -24,6 +22,15 @@ void UPRGameInstance::SetLevelCompleted(FName LevelName, bool bCompleted/* = tru
 bool UPRGameInstance::IsLevelCompleted(FName LevelName) const
 {
 	return ArrayLevelsCompleted.Contains(LevelName);
+}
+
+bool UPRGameInstance::AreLevelsCompleted(TArray<FName> LevelsNames) const
+{
+	for (const FName LName: LevelsNames)
+	{
+		if (!IsLevelCompleted(LName)) return false;
+	}
+	return true;
 }
 
 void UPRGameInstance::TriggerGameOver()
