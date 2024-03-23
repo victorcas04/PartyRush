@@ -40,6 +40,9 @@ protected:
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	const TMap<FName, TSubclassOf<UPRBaseMenuWidget>> GetMapSubmenusData() const { return MapSubmenusData; }
 
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	TSubclassOf<UPRBaseMenuWidget> GetPopupWidget(FName PopupRowName, UDataTable* PopupDT = nullptr, FName MenusDataRowName = "Popups") const;
+
 private:
 	UPROPERTY()
 	TMap<FName, TSubclassOf<UPRBaseMenuWidget>> MapSubmenusData;

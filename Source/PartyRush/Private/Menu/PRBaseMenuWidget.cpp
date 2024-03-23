@@ -20,3 +20,17 @@ void UPRBaseMenuWidget::Init()
 	if (!FoundRow) return;
 	MapSubmenusData = FoundRow->MapMenusData;
 }
+
+TSubclassOf<UPRBaseMenuWidget> UPRBaseMenuWidget::GetPopupWidget(FName PopupRowName, UDataTable* PopupDT/* = nullptr */ , FName MenusDataRowName/* = "Popups"*/) const
+{
+	// try to read data from table
+	if (!IsValid(PopupDT))
+	{
+		if (!IsValid(MenusDT)) return nullptr;
+		PopupDT = MenusDT;
+	}
+	if (MenusDataRowName == "") return nullptr;
+	FMenusData* FoundRow = PopupDT->FindRow<FMenusData>(MenusDataRowName, "UPRBaseMenuWidget::GetPopupWidget");
+	if (!FoundRow) return nullptr;
+	return *(FoundRow->MapMenusData.Find(PopupRowName));
+}
