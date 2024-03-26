@@ -15,7 +15,7 @@ void APRMenuManager::Init(TSubclassOf<UPRBaseMenuWidget> InitMenuClass)
 	}
 }
 
-void APRMenuManager::SetIsMenuOpen(bool bNewIsMenuOpen, bool bIsNewPauseMenu/* = bIsNewPauseMenu*/)
+void APRMenuManager::SetIsMenuOpen(bool bNewIsMenuOpen, bool bIsNewPauseMenu/* = false*/)
 {
 	bIsMenuOpen = bNewIsMenuOpen;
 	bIsPauseMenu = bIsNewPauseMenu;
@@ -36,7 +36,26 @@ bool APRMenuManager::ClosePauseMenu()
 {
 	if(!IsValid(PauseMenuRef)) return false;
 	PauseMenuRef->RemoveFromParent();
-	SetIsMenuOpen(false, false);
+	SetIsMenuOpen(false);
+	return true;
+}
+
+bool APRMenuManager::OpenPopup(UPRBaseMenuWidget* NewPopupRef)
+{
+	if (!IsValid(NewPopupRef)) return false;
+	PopupRef = NewPopupRef;
+	PopupRef->SetManager(this);
+	PopupRef->CustomAddToViewport(1);
+	return true;
+}
+
+bool APRMenuManager::ClosePopup()
+{
+	if (!IsValid(PopupRef)) return false;
+	PopupRef->UnbindAllDelegates();
+	PopupRef->RemoveFromParent();
+	PopupRef->Destruct();
+	PopupRef = nullptr;
 	return true;
 }
 
@@ -59,6 +78,6 @@ void APRMenuManager::LevelCommon(UPRBaseMenuWidget* Screen)
 	if (!IsValid(Screen)) return;
 	Screen->SetManager(this);
 	Screen->CustomAddToViewport();
-	SetIsMenuOpen(true, false);
+	SetIsMenuOpen(true);
 	OnLevelStatusChanged.Broadcast();
 }

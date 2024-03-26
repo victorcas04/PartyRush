@@ -23,13 +23,24 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	bool GetIsPauseMenu() { return bIsPauseMenu; }
 
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	bool GetIsPopup() { return PopupRef != nullptr; }
+
 	// true if opened
 	UFUNCTION()
 	bool OpenPauseMenu();
 
-	// false if closed
+	// true if closed
 	UFUNCTION()
 	bool ClosePauseMenu();
+
+	// true if opened
+	UFUNCTION(BlueprintCallable)
+	bool OpenPopup(UPRBaseMenuWidget* NewPopupRef);
+
+	// true if closed
+	UFUNCTION(BlueprintCallable)
+	bool ClosePopup();
 
 	UFUNCTION()
 	void LevelWin();
@@ -56,6 +67,9 @@ private:
 	UPROPERTY()
 	UPRBaseMenuWidget* PauseMenuRef;
 	
+	UPROPERTY()
+	UPRBaseMenuWidget* PopupRef;
+
 	UPROPERTY()
 	bool bIsMenuOpen{false};
 

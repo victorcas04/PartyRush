@@ -63,7 +63,7 @@ void APRInitManager::Init()
 		return;
 	}
 	
-	if(!InitInput())
+	if(!InitController())
 	{
 		// error cannot init input
 		return;
@@ -185,7 +185,7 @@ bool APRInitManager::InitMapManager()
 	return true;
 }
 
-bool APRInitManager::InitInput()
+bool APRInitManager::InitController()
 {
 	APlayerController* PController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 	if(!IsValid(PController)) return false;

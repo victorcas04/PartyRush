@@ -73,5 +73,5 @@ private:
 	bool InitMapManager();
 	
     UFUNCTION()
-    bool InitInput();
+    bool InitController();
 };

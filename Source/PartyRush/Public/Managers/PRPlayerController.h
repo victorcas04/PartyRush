@@ -1,16 +1,34 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "InputAction.h"
 #include "GameFramework/PlayerController.h"
 #include "PRPlayerController.generated.h"
 
 class APRGrid;
 class APRMenuManager;
+class UInputMappingContext;
 
 UCLASS()
 class PARTYRUSH_API APRPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "EnhancedInput")
+	UInputMappingContext* ControllerInputContext;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "EnhancedInput")
+	UInputAction* Input;
+
+	// todo haus setup
+	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Cursor")
+	//TSubclassOf<UPRCursorWidget> CursorClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cursor")
+	FVector2D CursorSpeedMux{ FVector2D(20.0f, 20.0f) };
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cursor")
+	FVector2D MouseSpeedMux{ FVector2D(10.0f, 10.0f) };
+
 	UFUNCTION()
 	void Init(APRGrid* Map, APRMenuManager* NewMenuManager);
 
@@ -18,6 +36,7 @@ public:
 	void PauseMenu();
 	
 protected:
+	virtual void SetupInputComponent() override;
 	virtual void BeginPlay() override;
 
 	/*
@@ -55,6 +74,9 @@ protected:
 	
 private:
 	UFUNCTION()
+	void InputFunction(const FInputActionValue& Value);
+
+	UFUNCTION()
 	void LevelStatusChanged();
 	
 	UFUNCTION()
@@ -65,4 +87,8 @@ private:
 	
 	UPROPERTY()
 	APRMenuManager* MenuManager;
+
+	// todo haus setup
+	//UPROPERTY()
+	//UPRCursorWidget* CursorRef;
 };

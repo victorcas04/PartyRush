@@ -27,6 +27,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void CustomAddToViewport(int32 ZOrder = 0);
 
+	UFUNCTION()
+	void UnbindAllDelegates() { BP_UnbindAllDelegates(); }
+
 protected:
 	UPROPERTY(EditAnywhere)
 	bool bIsPauseMenu{false};
@@ -42,6 +45,9 @@ protected:
 
 	UFUNCTION(BlueprintCallable, BlueprintPure)
 	TSubclassOf<UPRBaseMenuWidget> GetPopupWidget(FName PopupRowName, UDataTable* PopupDT = nullptr, FName MenusDataRowName = "Popups") const;
+	
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+	void BP_UnbindAllDelegates();
 
 private:
 	UPROPERTY()

@@ -33,7 +33,7 @@ Menu open/close -> Escape / P
 
 ### TODO LIST
 
- - Improvement: add popup when trying to return to main manu from pause menu
+	// todo: move widget texts to ST
 
 Feedback:
  - New: Camera shake and rumble on death and merge
@@ -47,5 +47,12 @@ Feedback:
  - New: Add settings for camera shake and rumble
  - New: Add colorblind support (shapes)
 
-Prg and utils:
- - New: Add commands to enable/disable debug messages and other utils
+ Iprovements:
+ - Enhanced inputs
+ - Support for cursor mode
+ - Map creation enhancement (read through file or similar)
+
+ Content:
+ - New maps
+ - New hazard: non mergeable obstacle
+ - New hazard: moving conga
