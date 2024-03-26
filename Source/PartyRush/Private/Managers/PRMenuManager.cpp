@@ -54,7 +54,6 @@ bool APRMenuManager::ClosePopup()
 	if (!IsValid(PopupRef)) return false;
 	PopupRef->UnbindAllDelegates();
 	PopupRef->RemoveFromParent();
-	PopupRef->Destruct();
 	PopupRef = nullptr;
 	return true;
 }
