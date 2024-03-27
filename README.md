@@ -33,8 +33,6 @@ Menu open/close -> Escape / P
 
 ### TODO LIST
 
-	// todo: move widget texts to ST
-
 Feedback:
  - New: Camera shake and rumble on death and merge
  - New: Add bg music, sfx when moving, dying, merging and completing the level
