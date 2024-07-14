@@ -50,9 +50,15 @@ Menu open/close -> Escape / P
 ### TODO LIST
 </p>
 
+Bugfixing:
+ - Win and gameover screens wont work with popup (remove from parent wont work)
+ - Some materials not loading on standalone/build
+ - Make a build and do git release
+
 Feedback:
  - New: Camera shakes and rumbles on death and merge
  - New: Add bg music, sfx when moving, dying, merging, and completing the level
+ - Make a build and do git release
 
  Gameplay:
  - New: Add some kind of stats (number of moves, time, deaths, number of merges, etc) so we can add a score or something
